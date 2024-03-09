@@ -181,7 +181,7 @@ app.delete('/delete',verify,async (request,response) => {
 app.get('/getRandomElement',async (request,response)=>{
     const data = await Content.aggregate([
         { $match : { category: { $nin: ["Forms", "Cards"] } } },
-        { $sample : {size : 3}},
+        { $sample : {size : 9}},
     ]);
     response.json({data});
 })

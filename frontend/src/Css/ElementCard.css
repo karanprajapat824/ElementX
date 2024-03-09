@@ -1,0 +1,11 @@
+.element-card-body{
+    border : 2px solid #333;
+    border-radius : 0.8vw;
+}
+
+.element-content-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #212121;
+}

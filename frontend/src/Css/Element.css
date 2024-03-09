@@ -1,0 +1,92 @@
+
+.view-cards-main-frame{
+    display : flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: end;
+    width : 90vw;
+    height: 90vh;
+    overflow : auto;
+}
+
+.view-top-navbar{
+  width : 84vw;
+  height: fit-content;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap : 30px;
+  margin-top: 40px;
+}
+
+.view-heading{
+  color : white;
+  margin-left: 2rem;
+  font-size: x-large;
+  padding: 8px;
+}
+
+.cards{
+  width : 84vw;
+  height: 79.5vh;
+  display: flex;
+  flex-wrap: wrap;
+  scrollbar-width: none;
+  overflow: auto;
+}
+
+.element-mixed-button{
+  color : white;
+  font-size: large;
+  border-left: 2px solid rgba(51, 51, 51, 0.5);
+  background-color: #212121;
+  border: none;
+  padding: 7px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vertical-line{
+  border: 1px solid #333;
+  border-radius: 80px;
+  height: 6vh;
+}
+
+.pagination{
+  position: relative;
+  width: 90vw;
+  height: 10vh;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 30px;
+}
+
+.pagination button{
+  color : white;
+  padding: 7px;
+  border-radius: 8px;
+  border: none;
+  font-size: large;
+  background-color: #333;
+  display: flex;
+  align-items: center;
+  gap : 8px;
+}
+
+.pagination span{
+  color : rgb(77,175,200);
+  font-size: larger;
+}
+
+.pagination button:hover{
+  border : 1px solid white;
+}
+
+
+
+
+
+

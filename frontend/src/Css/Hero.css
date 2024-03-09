@@ -1,0 +1,259 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,800&family=Oswald&display=swap');
+.hero{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+.UpperCon {
+    height: 90vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.heading1 {
+    font-size: 4vw;
+    color: #F2F2F2;
+    text-shadow: 1px 1  px 2px #16b7ed;
+}
+
+.subheading {
+    color: #F2F2F2;
+    margin-left: 1%;
+    font-size: 2vw;
+}
+
+.heading2 {
+    color: rgb(77, 175, 200);
+    margin-left: 1%;
+    font-size: 3vw;
+}
+
+.heading2 span {
+    color: white;
+}
+
+.heading2 span span {
+    color: rgb(77, 175, 200);
+    animation: blink 700ms infinite;
+}
+
+.uppercon-left {
+    width: 45vw;
+    height: 61vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 2%;
+    padding-left: 4%;
+}
+.heading3 {
+    color: #9CA3AF;
+    font-size: 1.2vw;
+    padding: 2%;
+}
+
+.beautiful {
+    color: purple;
+    font-size: 1.5vw;
+}
+
+.heading1,
+.heading3,
+.beautiful {
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    text-decoration: capitalize;
+}
+
+
+.uppercon-right {
+    height: 120vh;
+    width: 50vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+
+.hero-element-structure{
+    border : 2px solid red;
+    height: 70vh;
+    width: 45vw;
+    color : white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position : relative;
+}
+.slide-1{
+    border : 2px solid red;
+    height: 60%;
+    width: 40%;
+    position : absolute;
+}
+.slide-2{
+    border : 2px solid red;
+}
+.input-container {
+    display: flex;
+    height: 7vh;
+    width: 35vw;
+    justify-content: start;
+    align-items: center;
+    border: 2px solid #333;
+    border-radius: 20vw;
+}
+
+.input {
+    border-top-left-radius: 20vw;
+    width: 30vw;
+    height: 7vh;
+    font-size: 1.2vw;
+    border-bottom-left-radius: 20vw;
+    border: none;
+    border-right: 2px solid #212121;
+    background: #D1D5DB;
+    outline: none;
+    text-align: center;
+}
+
+.searchButton {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top-right-radius: 21vw;
+    border-bottom-right-radius: 21vw;
+    background: #D1D5DB;
+    border-left: none;
+    border: none;
+    font-weight: 600;
+    font-size: 1.2vw;
+    height: 7vh;
+    width: 10vw;
+}
+
+.main-input {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 35vw;
+    height: 7vh;
+}
+
+.input-container:hover {
+    border: 2px solid #16b7ed;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+
+@media screen and (max-width:900px){
+    .HeroContainer{
+        overflow: auto;
+    }
+    .UpperCon{
+        flex-direction: column;
+        align-items: start;
+        justify-content: start;
+        gap : 5vh;
+        height: fit-content;
+    }
+    .heading1{
+        font-size: 11vw;
+    }
+    .heading2{
+        font-size: 7vw;
+    }
+    .subheading{
+        font-size: 5vw;
+    }
+    .uppercon-left{
+        width: 90vw;
+        height: auto;
+        justify-content: start;
+        gap : 1vh;
+    }
+    .uppercon-right{
+        width: 90vw;
+        position: relative;
+    }
+    .heading3{
+        font-size: 2vw;
+    }
+    .main-input{
+        width: 80vw;
+        height: 10vh;
+    }
+    .beautiful{
+        font-size: 3vw;
+    }
+    .input-container{
+        height: 9vh;
+        width: 80vw;
+    }
+    .input{
+        height: 9vh;
+        width: 65vw;
+        font-size: 2vw;
+    }
+    .searchButton{
+        height: 9vh;
+        width: 15vw;
+        font-size: 2vw;
+    }
+}
+
+
+
+@media screen and (max-width : 500px)
+{
+    .HeroContainer{
+        overflow: auto;
+        height: 200vh;
+    }
+    .UpperCon{
+        overflow: auto;
+        height: fit-content;
+        height: calc(fit-content + 1vh);
+    }
+    .uppercon-right{
+        overflow: auto;
+        height: calc(fit-content + 1vh);    
+    }
+    .main-input{
+        width: 90vw;
+        height: 10vh;
+    }
+    .input-container{
+        height: 7vh;
+    }
+    .input{
+        height: 7vh;
+        width: 60vw;
+        font-size: 3vw;
+    }
+    .heading3{
+        font-size: 3vw;
+    }
+    .searchButton{
+        height: 7vh;
+        width: 20vw;
+        font-size: 3vw;
+    }
+}
