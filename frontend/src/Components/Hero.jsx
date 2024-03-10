@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import ElementCard from './ElementCard';
 import {ImSearch} from 'react-icons/im';
 import { BsStars } from 'react-icons/bs';
+import { RxDoubleArrowLeft,RxDoubleArrowRight } from "react-icons/rx";
 import './../Css/Hero.css';
 import Navbar from './Navbar';
 
@@ -71,9 +72,11 @@ useEffect(() => {
           </div>
             <div className='uppercon-right'>
               <div className='hero-element-structure'>
+              <RxDoubleArrowLeft className='hero-arrow-button-left'/>
                   <div className='slide-1'></div>
                   <div className='slide-2'></div>
                   <div className='slide-3'></div>
+                <RxDoubleArrowRight className='hero-arrow-button-right'/>    
               </div>
             </div>
         </div>
