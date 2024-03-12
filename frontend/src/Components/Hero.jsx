@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react';
 import ElementCard from './ElementCard';
 import {ImSearch} from 'react-icons/im';
 import { BsStars } from 'react-icons/bs';
-import { RxDoubleArrowLeft,RxDoubleArrowRight } from "react-icons/rx";
+import { GoDotFill } from "react-icons/go";
+import { BiCodeAlt } from "react-icons/bi"
 import './../Css/Hero.css';
 import Navbar from './Navbar';
 
@@ -72,11 +73,19 @@ useEffect(() => {
           </div>
             <div className='uppercon-right'>
               <div className='hero-element-structure'>
-              <RxDoubleArrowLeft className='hero-arrow-button-left'/>
-                  <div className='slide-1'></div>
-                  <div className='slide-2'></div>
-                  <div className='slide-3'></div>
-                <RxDoubleArrowRight className='hero-arrow-button-right'/>    
+                  <div className='slide'>
+                    <div className='slide-navbar'>
+                      <GoDotFill className='dot-1'/>
+                      <GoDotFill className='dot-2'/>
+                      <GoDotFill className='dot-3'/>
+                    </div>
+                    <div className='slide-loader'></div>
+                    <div className='slide-body'>
+                    <button className='slide-getcode-button' >
+                      <BiCodeAlt style={{ fontSize: "20px" }} /> Get code
+                    </button>
+                    </div>
+                  </div>
               </div>
             </div>
         </div>
