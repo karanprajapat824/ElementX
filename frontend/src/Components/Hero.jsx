@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import ElementCard from './ElementCard';
 import {ImSearch} from 'react-icons/im';
 import { BsStars } from 'react-icons/bs';
@@ -12,7 +12,6 @@ const Hero = () => {
   const text = ['Buttons','Forms','Cards','Loaders','Radio Buttons','Toggle Switches','Check Boxes'];
   const [items,setItems] = useState("");
   const [data,setData] = useState([]);
-
 
 useEffect(() => {
   const plaintext = async () => {
@@ -39,19 +38,25 @@ useEffect(() => {
 
 }, [setItems]);
 
-  useEffect(()=>{
-    const fetchData = async ()=>{
-      const response = await fetch('http://localhost:4040/getRandomElement',{
-      method : 'GET',
-      headers : {
-        "Content-Type" : "application/json"
-      }
-    }) ;
-    const ResponseData = await response.json();
-      setData(ResponseData.data);
-    };
-    fetchData();
-  },[setData]);
+useEffect(() => {
+
+  const fetchData = async () => {
+    try {
+      const response = await fetch('http://localhost:4040/getElement', {
+        method: 'GET',
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
+      const responseData = await response.json();
+      setData(responseData.data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  fetchData();
+}, []);
 
 
   return (
@@ -81,9 +86,17 @@ useEffect(() => {
                     </div>
                     <div className='slide-loader'></div>
                     <div className='slide-body'>
-                    <button className='slide-getcode-button' >
-                      <BiCodeAlt style={{ fontSize: "20px" }} /> Get code
-                    </button>
+                      {
+                        data?.map((each)=>{
+                           
+                          return(
+                            <>
+                              <ElementCard html={each.html} css={each.css} key={each.__id} width="45vw" height="57vh" />
+                            </>
+                            
+                          )
+                        })
+                      }
                     </div>
                   </div>
               </div>

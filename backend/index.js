@@ -178,10 +178,10 @@ app.delete('/delete',verify,async (request,response) => {
     return response.json({message : "invalid user id"});
 });
 
-app.get('/getRandomElement',async (request,response)=>{
+app.get('/getElement',async (request,response)=>{
     const data = await Content.aggregate([
-        { $match : { category: { $nin: ["Forms", "Cards"] } } },
-        { $sample : {size : 9}},
+        { $match : { category: { $nin: ["Forms"] } } },
+        { $sample : {size : 1}},
     ]);
     response.json({data});
 })

@@ -92,35 +92,35 @@
 
 .slide {
     border : 2px solid white;
-    height: 90%;
-    width: 100%;
+    height: 65vh;
+    width: 45vw;
     position : absolute;
     border-radius : 0.6vw;
     box-shadow: 0px 0px 5px 0px #16b7ed;
     background-color: #212121;
     z-index: 3;
-    overflow: hidden;
 }
 
 .slide-getcode-button{
     position: static;
-    padding: 4px 8px 4px 6px;
+    padding: 0.5vw 2vw 4px 2vw;
     border-radius: 6px;
+    width : 10vw;
     border: 1px solid #333;
-    font-size : 15px;
-    transform: translate(31rem,19.5rem);
+    font-size : 1.5vw;
+    transform: translate(-8rem,10rem);
     font-family: 'Montserrat', sans-serif;
     background-color: #212121;
     color : white;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: row;
     gap : 6px;
     cursor : pointer;
-
 }
 .slide-navbar{
-    height: 10%;
+    height: 6.5vh;
     display: flex;
     justify-content: start;
     align-items: center;
@@ -146,21 +146,12 @@
 }
 
 .slide-body{
-    height: 90%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
     position: relative;
 }
-.hero-arrow-button-left{
-    color : white;
-    transform: translate(-19vw,0vh);
-    position : absolute;
-    font-size: 5vh;
-}
-.hero-arrow-button-right{
-    color : white;
-    transform: translate(19vw,0vh);
-    position: absolute;
-    font-size: 5vh;
-}
+
 .input-container {
     display: flex;
     height: 7vh;
