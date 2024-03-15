@@ -42,7 +42,7 @@ useEffect(() => {
 
   const fetchData = async () => {
     try {
-      const response = await fetch('http://localhost:4040/getElement', {
+      const response = await fetch('https://element-x-pi.vercel.app/getElement', {
         method: 'GET',
         headers: {
           "Content-Type": "application/json"
