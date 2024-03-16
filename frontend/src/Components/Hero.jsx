@@ -3,7 +3,9 @@ import ElementCard from './ElementCard';
 import {ImSearch} from 'react-icons/im';
 import { BsStars } from 'react-icons/bs';
 import { GoDotFill } from "react-icons/go";
-import { BiCodeAlt } from "react-icons/bi"
+
+
+import { FcLike } from "react-icons/fc";
 import './../Css/Hero.css';
 import Navbar from './Navbar';
 
@@ -87,16 +89,28 @@ useEffect(() => {
                     <div className='slide-loader'></div>
                     <div className='slide-body'>
                       {
-                        data?.map((each)=>{
+                        data.map((each)=>{
                            
                           return(
                             <>
-                              <ElementCard html={each.html} css={each.css} key={each.__id} width="45vw" height="57vh" />
-                            </>
-                            
+                              <ElementCard 
+                              html={each.html}
+                              css={each.css} 
+                              key={each.__id} 
+                              width="45vw"
+                              height="57vh"
+                              border="none"
+                              username={each.username}
+                              likes={each.likes} 
+                              />
+                            </>     
                           )
                         })
                       }
+                      
+                    </div>
+                    <div className='slide-bottum' >
+                      
                     </div>
                   </div>
               </div>

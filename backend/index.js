@@ -7,20 +7,6 @@ const app = express();
 const port = 4040;
 const secret = "634659";
 
-const verify = (request,response,next) => {
-    try 
-    {
-        const auth = request.headers.authorization;
-        const token = auth.replace('Bearer ','');
-        const json = jwt.verify(token,secret);
-        request.user = json;
-        next();
-    }catch(error)
-    {
-        response.json({message : "Invalid Token"});
-    }
-}
-
 mongoose.connect('mongodb+srv://karanprajapat824:karanprajapat824@cluster0.xescpid.mongodb.net/?retryWrites=true&w=majority',{
     useNewUrlParser : true,
     useUnifiedTopology : true
@@ -38,6 +24,11 @@ const contentSchema = new mongoose.Schema({
     css : String,
     category : String,
     username : String,
+    likes : [
+        {
+            username : String
+        }
+    ]
 });
 
 const reviewSchema = new mongoose.Schema({
@@ -52,77 +43,70 @@ const User = mongoose.model('websiteUser',userSchema);
 const Review = mongoose.model('review',reviewSchema);
 
 
-
-
-
 app.use(bodyParser.json());
 app.use(cors());
 
-app.post('/userInfo',verify,async (request,response)=>{
-    const username = request.body.username;
-    const data = await Content.find({username : username});
-    if(data)
-    {
-        response.status(200).json({data});
-    }
-})
 
-app.post('/register',async (request,response) => {
-    const fullname = request.body.fullname;
-    const username = request.body.username;
-    const gmail = request.body.gmail;
-    const password = request.body.password;
-    let existingUser = await User.findOne({username});
-    if(existingUser)
+app.post('/register',async (req,res) => {
+    try
     {
-        return response.json({message : "Username is already exist"});
-    }
-    existingUser = await User.findOne({gmail});
-    if(existingUser)
-    {
-        return response.json({message : "Gmail is already exist"});
-    }
-    const user = {username,password,gmail,fullname};
-    const newUser = new User(user);
-    newUser.save();
-    const token = jwt.sign(user,secret);
-    response.json({
-        message : "User register successfully",
+        const username = req.body.username;
+        const gmail = req.body.gmail;
+        const password = req.body.password;
+        const existingUser = await User.findOne({ $or: [{ username }, { gmail }] });
+        if(existingUser) 
+        {
+            if (existingUser) {
+                if (existingUser.username === username) {
+                    return res.json({ message: "Username is already taken" });
+                } else {
+                    return res.json({ message: "Gmail is already registered" });
+                }
+            }
+        }
+        const user = {username,password,gmail};
+        const newUser = new User(user);
+        newUser.save();
+        const token = jwt.sign(user,secret);
+        res.status(200).json({
+            message : "User register successfully",
         token
     });
+    }catch(error)
+    {
+        res.status(500).json({message : "internal server error",error})
+    }
+    
 } )
 
-app.post('/login',async (request,response) => {
-    const username = request.body.username;
-    const password = request.body.password;
-    let existingUser = await User.findOne({username});
-    if(!existingUser)
+app.post('/login',async (req,res) => {
+    try
     {
-        return response.json({message : "Invalid Username"});
+        const username = req.body.username;
+        const password = req.body.password;
+        let existingUser = await User.findOne({username});
+        if(!existingUser)
+        {
+            return res.status(404).json({message : "User not found"});
+        }
+        if(existingUser.password === password)
+        {
+            const user = {username,password,gmail : existingUser.gmail};
+            const token = jwt.sign(user,secret);
+            return res.status(200).json({message : "login successfully ",token});
+        }
+        else 
+        {
+            return res.json({message : "Invalid password"});
+        }
     }
-    if(existingUser.password === password)
+    catch(error)
     {
-        const user = {username,password,gmail : existingUser.gmail};
-        const token = jwt.sign(user,secret);
-        return response.json({message : "login successfully ",token});
-    }
-    else 
-    {
-        return response.json({message : "Invalid password"});
+        res.status(500).json({message : "internal server error",error})
     }
 });
 
-app.post('/review',verify,(request,response)=>{
-    const html = request.body.html;
-    const css = request.body.css;
-    const category = request.body.category;
-    const username = request.body.username;
-    const reviewData = new Review({html,css,category,username});
-    reviewData.save();
-    return response.status(200).json({ok : true});
-});
-
-app.post('/create',verify,(request,response)=>{
+app.post('/create',(request,response)=>{
     const html = request.body.html;
     const css = request.body.css;
     const category = request.body.category;
@@ -149,34 +133,6 @@ app.get('/getall', async (request, response) => {
     }
   });
 
-app.post('/update',verify,async (request,rsponse)=>{
-    const html = request.body.html;
-    const css = request.body.css;
-    const _id = request.body.id;
-    let existingData = await Content.findOne({_id});
-    if(!existingData)
-    {
-        return express.response.json({message : "User not found"});
-    }
-    existingData.html = html;
-    existingData.css = css;
-    await existingData.save();
-});
-
-app.delete('/delete',verify,async (request,response) => {
-    const _id = request.body._id;
-    let existingData = await Content.findOne({_id});
-    if(existingData)
-    {
-        let existingPost = await Content.findOneAndDelete({_id});
-        if(!existingPost)
-        {
-            return response.json({message : "post not found"});
-        }
-        return response.json({message : "post deleted successfuly"});
-    }
-    return response.json({message : "invalid user id"});
-});
 
 app.get('/getElement',async (request,response)=>{
     const data = await Content.aggregate([
@@ -185,57 +141,6 @@ app.get('/getElement',async (request,response)=>{
     ]);
     response.json({data});
 })
-
-app.get('/getButtons',async (request,response) =>{
-    const pageSize = 15;
-  
-      const data = await Content.aggregate([
-        { $match: { category: "Buttons" } },
-        { $sample: { size: pageSize } },
-     ]);
-
-    response.json({data});
-});
-
-app.get('/getForms',async (request,response) =>{
-    const data = await Content.find({category : "Forms"});
-    response.json({data});
-});
-
-app.get('/getCards',async (request,response) =>{
-    const data = await Content.find({category : "Cards"});
-    response.json({data});
-});
-
-app.get('/getCheckBoxes',async (request,response) =>{
-    const data = await Content.find({category : "CheckBoxes"});
-    response.json({data});
-});
-
-app.get('/getInputs',async (request,response) =>{
-    const data = await Content.find({category : "Inputs"});
-    response.json({data});
-});
-
-app.get('/getLoaders',async (request,response) =>{
-    const data = await Content.find({category : "Loaders"});
-    response.json({data});
-});
-
-app.get('/getRadioButtons',async (request,response) =>{
-    const data = await Content.find({category : "RadioButtons"});
-    response.json({data});
-});
-
-app.get('/getToggleSwitches',async (request,response) =>{
-    const data = await Content.find({category : "ToggleSwitches"});
-    response.json({data});
-});
-
-app.get('/getOthers',async (request,response) =>{
-    const data = await Content.find({category : "Others"});
-    response.json({data});
-});
 
 app.post('/getElementById', async (request, response) => {
     const _id = request.body._id;
@@ -250,6 +155,28 @@ app.post('/getElementById', async (request, response) => {
     }
     
   });
+
+app.post('/likesControl', async (req,res)=>{
+    const username = req.body.username;
+    const _id = req.body._id;
+    const data = await Content.findOne({_id});
+    if(data)
+    {
+        let likeIt = data.likes.some(like => like.username === username);
+        if(!likeIt)
+        {
+            data.likes.push({username});
+            data.save();
+            likeIt = true;
+        }
+        const likeCount = data.likes.length;
+        res.json({likeCount,likeIt});
+    }
+    else 
+    {
+        res.json({message : "error"});
+    }
+});
 
 app.listen(port,()=>{
     console.log(`Listening on port number ${port}`);

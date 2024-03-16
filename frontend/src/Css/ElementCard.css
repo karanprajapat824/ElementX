@@ -1,12 +1,79 @@
-.element-card-body{
-    border-radius : 0.8vw;
-}
-
-.element-content-body{
+.card{
+    border : 2px solid white;
     display: flex;
-    height: 100%;
-    width: 100%;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    border-radius: 1vw;
+}
+
+.card-body{
+    height: 85%;
+    width : 100%;
+    display : flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-body a{
+    text-decoration: none;
+}
+
+.card-footer{
+    border-top: 2px solid white;
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card-profile{
+    color : white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 0.5vw;
+    font-size: 1.5vw;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+
+.card-like-button{
+    color : white;
+    font-size: larger;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 0.5vw;
+    cursor: pointer;
+    
+}
+
+
+.card-getcode-button{
+    position: absolute;
+    width : 10vw;
+    padding: 0.5vh 1vh;
+    border : 2px solid #333;
+    border-radius: 0.5vw;
+    font-size: large;
+    font-family: 'Montserrat', sans-serif;
     background-color: #212121;
+    color : white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 0.5vw;
+    cursor : pointer;
+    visibility: hidden;
+    transform: translate(12vw,-16vh);
+}
+
+.card:hover{
+    .card-getcode-button{
+        visibility: visible;
+    }
+
 }
