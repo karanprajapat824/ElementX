@@ -16,6 +16,8 @@ const userSchema = new mongoose.Schema({
     username : String,
     gmail : String,
     password : String,
+    myElements : [String],
+    likes : [String]    
 });
 
 
@@ -24,11 +26,7 @@ const contentSchema = new mongoose.Schema({
     css : String,
     category : String,
     username : String,
-    likes : [
-        {
-            username : String
-        }
-    ]
+    likes : [String]
 });
 
 const reviewSchema = new mongoose.Schema({
@@ -46,6 +44,17 @@ const Review = mongoose.model('review',reviewSchema);
 app.use(bodyParser.json());
 app.use(cors());
 
+
+const verify = (req,res,next)=>{
+    try{
+        const token = req.headers.authorization;
+        const json = jwt.verify(token,secret);
+        req.user = json;
+        next();
+    }catch(error){
+        res.status(404).json({message : "Invalid token"})
+    }
+}
 
 app.post('/register',async (req,res) => {
     try
@@ -106,75 +115,140 @@ app.post('/login',async (req,res) => {
     }
 });
 
-app.post('/create',(request,response)=>{
-    const html = request.body.html;
-    const css = request.body.css;
-    const category = request.body.category;
-    const username = request.body.username;
-    const newContent = new Content({html,css,category,username});
-    newContent.save();
-    return response.status(200).json({message : "your creation saved successfully",
-    html,css,category,username});
-});
 
-app.get('/getall', async (request, response) => {
-    try {
-      const pageSize = 15;
-  
-      const data = await Content.aggregate([
-        { $match: { category: { $nin: ["Forms", "Cards"] } } },
-        { $sample: { size: pageSize } },
-     ]);
-
-      return response.status(200).json({ data });
-    } catch (error) {
-      console.error(error);
-      return response.status(500).json({ message: 'Internal Server Error' });
-    }
-  });
-
-
-app.get('/getElement',async (request,response)=>{
-    const data = await Content.aggregate([
-        { $match : { category: { $nin: ["Forms"] } } },
-        { $sample : {size : 1}},
-    ]);
-    response.json({data});
-})
-
-app.post('/getElementById', async (request, response) => {
-    const _id = request.body._id;
-    const data = await Content.find({_id : _id});
-    if(data)
+app.post('/create',verify,(req,res)=>{
+    try{
+        const html = req.body.html;
+        const css = req.body.css;
+        const category = req.body.category;
+        const username = req.body.username;
+        const newContent = new Content({html,css,category,username});
+        newContent.save();
+        return res.status(200).json({message : "your creation saved successfully"});
+    }catch(error)
     {
-        response.status(200).json({data});
-    }
-    else 
-    {
-        response.json({message : "Element not found"});
+        res.json({message : "Internal server error"});
     }
     
+});
+
+app.post('/update',verify,async (req,res)=>{
+    try{
+        const html = req.body.html;
+        const css = req.body.css;
+        const _id = req.body._id;
+        const existingContent = await Content.findOne({_id});
+        if(!existingContent)
+        {
+            return res.status(404).json({message : "Element not found"});
+        }
+        existingContent.html = html;
+        existingContent.css = css;
+        existingContent.save();
+        return res.status(200).json({message : "update successfully",existingContent});
+    }catch(error)
+    {
+        return res.status(500).json({message : "Internal server error"});
+    }
+});
+
+app.delete('/delete',verify,async (req,res)=>{
+    try{
+        const _id = req.body._id;
+        const elementDeleted = await Content.deleteOne({_id});
+        if(!elementDeleted) return res.status(404).json({message : "Element not found"});
+        res.status(200).json({message : "Delete sussefully"});
+    }catch(error)
+    {
+        return res.status(500),json({message : "Internal server error"});
+    }
+})
+
+app.get('/getall', async (req, res) => {
+    try {
+      const pageSize = 15;
+      const data = await Content.aggregate([
+        { $match: { category: { $nin: ["Forms","Cards"] } } },
+        { $sample: { size: pageSize } },
+     ]);
+      return res.status(200).json({ data });
+    } catch (error) {
+      return res.status(500).json({ message: 'Internal Server Error' });
+    }
   });
 
-app.post('/likesControl', async (req,res)=>{
-    const username = req.body.username;
-    const _id = req.body._id;
-    const data = await Content.findOne({_id});
-    if(data)
+
+app.get('/getRandomElement',async (req,res)=>{
+    try{
+        const data = await Content.aggregate([
+            { $match : { category: { $nin: ["Forms"] } } },
+            { $sample : {size : 1}},
+        ]);
+        return res.json({data});
+    }catch(error)
     {
-        let likeIt = data.likes.some(like => like.username === username);
-        if(!likeIt)
-        {
-            data.likes.push({username});
-            data.save();
-            likeIt = true;
-        }
-        const likeCount = data.likes.length;
-        res.json({likeCount,likeIt});
+        return res.status(500).json({message  : "internal server error"});
     }
-    else 
+})
+
+app.post('/getElementById', async (req, res) => {
+    try{
+        const _id = req.body._id;
+        const data = await Content.findOne({_id});
+        if(data)
+        {
+            res.status(200).json({data});
+        }
+        else 
+        {
+            res.status(404).json({message : "Element not found"});
+        }
+    }catch(error)
     {
-        res.json({message : "error"});
+        return res.status(500).json({message  : "Internal server error"});
+    }
+  });
+
+  app.post('/getElementByCategory',async (req,res)=>{
+        try{
+            const category = req.body.category;
+            const data = await Content.aggregate([
+                { $match : { category : category}},
+                { $sample : 15}
+            ]);
+            if(data) return res.status(200).json({data});
+            else return res.status(404).json({message : "data unavailable"});
+        }catch(error)
+        {
+            return res.status(500).json({message : "internal server error"});
+        }
+  });
+
+app.post('/likes',verify,async (req,res)=>{
+    try{
+        const username = req.body.username;
+        const _id = req.body._id;
+        const data = await Content.findOne({_id});
+        if(!data) return res.status(404).json({message : "Element not found"});
+        if(data.likes.includes(username))
+        {
+            const result = await Content.updateOne(
+                { _id: _id },
+                { $pull: { likes: username } }
+            );
+            const likeCount = data.likes.length;
+            return res.status(204).json({likeIt : false,likeCount});
+        }
+        else 
+        {
+            data.likes.push(username);
+            await data.save();
+            const likeCount = data.likes.length;
+            return res.status(200).json({likeIt : true,likeCount});
+        }
+    }catch(error)
+    {
+        return res.status(500).json({message : "internal server error"});
     }
 });
 
