@@ -1,0 +1,44 @@
+.footer{
+    color : white;
+    padding : 5vh 0vw;
+    background-color: #212121;
+    height: fit-content;
+    display: flex;
+    justify-content: space-around;
+    
+}
+
+.about-logo{
+    color : white;
+    font-size: medium;
+    width: 30%;
+    font-weight: normal;
+    margin-top: 3vh;
+        
+}
+
+.services{
+    font-weight: normal;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    gap : 1vh;
+    margin-top: 3vh;
+    cursor: pointer;
+}
+
+.contact-us{
+    display: flex;
+    gap : 2vh;
+    margin-top: 3vh;
+    font-size: larger;
+    cursor: pointer;
+}
+
+@media screen and (max-width : 900px)
+{
+    .footer{
+        display: none;
+    }
+}

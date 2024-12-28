@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,500&family=Young+Serif&display=swap');
+
+.create-code-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 5vh 0vh;
+}
+
+.create-code-back-button {
+    color: white;
+    font-size: 2vw;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 90vw;
+    height: 10vh;
+    gap: 1vw;
+    cursor: pointer;
+}
+
+.create-code-container {
+    height: 80vh;
+    width: 90vw;
+    border-radius: 1vw;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border: 1px solid white;
+    overflow: hidden;
+    box-shadow: 0px 0px 5px 0px #16b7ed;
+}
+
+.create-code-output {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #212121;
+}
+
+.create-code-input {
+    height: 100%;
+    width: 50%;
+    border-left: 8px solid #333;
+}
+
+.create-code-navbar {
+    height: 10%;
+    width: 100%;
+    background-color: #191616;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    padding: 0px 0px 0px 10px;
+}
+
+.create-code-inactive-button {
+    background-color: #333;
+    border: none;
+    border-radius: 0.5vw 0.5vw 0px 0px;
+    color: white;
+    height: 70%;
+    width: 25%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3vw;
+    cursor: pointer;
+    gap : 1vh;
+    padding-left: 1vw;
+}
+
+.create-code-active-button {
+    background-color: #212121;
+    border: 1px solid #333;
+    border-radius: 0.5vw 0.5vw 0px 0px;
+    border-bottom: none;
+    color: rgb(77, 175, 200);
+    height: 70%;
+    width: 25%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3vw;
+    text-shadow: 0 0 10px rgba(77, 175, 200, 0.3), 0 0 10px rgba(77, 175, 200, 0.3), 0 0 10px rgba(77, 175, 200, 0.3);
+    cursor: pointer;
+    gap: 1vh;
+    padding-left: 1vw;
+}
+
+.create-code-input-body {
+    height: 80%;
+    width: 100%;
+    overflow: hidden;
+    background-color: #272b32;
+}
+
+.textarea {
+    height: 100%;
+    background-color: #272b32;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: 0px;
+}
+
+.textarea::-webkit-scrollbar{
+    display: none;
+}
+
+.create-code-input-bottom {
+    height: 10%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background-color: #333;
+}
+
+.create-code-submit-button{
+    padding: 1.5vh 3vw;
+    border-radius: 1vh;
+    font-size: large;
+    font-weight: bold;
+    border: none;
+    cursor: pointer;
+    transition: 500ms;
+}
+
+.create-code-submit-button:hover{
+    filter: invert(100%);
+}
+
+@media screen and (max-width : 900px) {
+    .create-code-body{
+        display: none;
+    }
+}

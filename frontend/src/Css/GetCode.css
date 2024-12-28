@@ -1,0 +1,176 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,600;1,500&family=Young+Serif&display=swap');
+
+.getcode-body{
+    width: 100vw;
+    height: 91vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.getcode-back-button{
+    color : white;
+    font-size: 2vw;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    width: 90vw;
+    height: 10vh;
+    gap : 1vw;
+    cursor: pointer;
+}
+
+.getcode-container{
+    height: 70vh;
+    width: 90vw;
+    border-radius: 1vw;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    border: 1px solid white;
+    overflow: hidden;
+    box-shadow: 0px 0px 5px 0px #16b7ed;
+}
+
+.getcode-output{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    background-color: #212121;
+}
+
+.getcode-input{
+    height: 100%;
+    width: 50%;
+    border-left : 8px solid #333;
+}
+
+.getcode-navbar{
+    height: 10%;
+    width: 100%;
+    background-color: #191616;
+    display: flex;
+    justify-content: start;
+    align-items: end;
+    padding : 0px 0px 0px 10px;
+}
+
+.getCode-inActive-button{
+    background-color: #333;
+    border : none;
+    border-radius: 0.5vw 0.5vw 0px 0px;
+    color : white;
+    height: 70%;
+    width: 25%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3vw;
+    cursor: pointer;
+}
+
+.getCode-active-button{
+    background-color: #212121;
+    border : 1px solid #333;
+    border-radius: 0.5vw 0.5vw 0px 0px;
+    border-bottom: none ; 
+    color : rgb(77,175,200);
+    height: 70%;
+    width: 25%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.3vw;
+    text-shadow  : 0 0 10px rgba(77,175,200,0.3),0 0 10px rgba(77,175,200,0.3),0 0 10px rgba(77,175,200,0.3);
+    cursor: pointer;
+}
+
+.getcode-input-body{
+    height: 80%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.textarea{
+    height: 92%;
+    width: 96%;
+    resize: none;
+    padding : 1vw;
+    overflow: auto;
+    background-color: #212121;
+    outline: none;
+    border : 0px;
+    color : white;
+}
+
+.getcode-input-bottum{
+    height: 10%;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    background-color: #333;
+}
+
+.getcode-profile{
+    color : white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap : 1vw;
+    padding-left: 2vw;
+    font-size: 1.5vw;
+    font-weight: 600;
+    cursor: pointer;
+}
+@media screen and (max-width : 1000px)
+{
+    .getCode-background{
+        height: fit-content;
+        width: 100vw;
+        overflow: auto;
+    }
+    .overview-of-getCode{
+        width: 100vw;
+        overflow: auto;
+    }
+    .getCode-container{
+        height: 100vh;
+        flex-direction: column;
+        justify-content: start;
+        overflow: auto;
+    }
+    .getCode-output-container{
+        width: 90vw;
+        height: 50vh;
+    }
+    .getCode-input-container{
+        width: 90vw;
+        height: 50vh;
+    }
+    .getCode-navbar{
+        width : 90vw;
+    }
+    .getCode-input-textarea-container{
+        width : 90vw;
+        height: 40vh;
+    }
+    .getCode-input-container textarea{
+        width : 90vw;
+        height: 40vh;
+        resize: none;
+    }
+    .getCode-active-button,
+    .getCode-inActive-button{
+        width : 30vw;
+        border-radius: 1.7vw 1.7vw 0vw 0vw;
+        font-size : 3vw;
+    }
+
+}

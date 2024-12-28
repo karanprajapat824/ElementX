@@ -1,0 +1,25 @@
+.carousel-container {
+    display: flex;
+    width: 100vw;
+    position: relative;
+    flex-direction: column;
+}
+.cards::-webkit-scrollbar{
+    display: none;
+}
+.cards{
+    display: flex;
+    scrollbar-width: 0;
+}
+
+.card-container {
+    margin: 1vw 2vw;
+    height: 25vh;
+    width: 20vw;
+    border: 2px solid white;
+    color: white;
+    border-radius: 1vw;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+}
